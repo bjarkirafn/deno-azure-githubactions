@@ -11,9 +11,6 @@ on:
     branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
   build-and-deploy:
@@ -29,17 +26,17 @@ jobs:
     - name: Set up Deno
       uses: denolib/setup-deno@master
       with:
-        deno-version: 1.0.3
+        deno-version: 1.0.2
 
     - name: Bundle and zip Deno app
       run: |
         deno bundle server.ts server.bundle.js
         zip app.zip server.bundle.js
-    - name: Deploy to Azure Web Apps
-      uses: anthonychu/azure-webapps-deno-deploy@master
+    - name: Deploy Deno to Azure App Service
+      uses: anthonychu/azure-webapps-deno-deploy@v0.2.0
       with:
-        app-name: denodemo
-        resource-group: deno-demo
+        app-name: jadenodemo
+        resource-group: deno
         package: app.zip
         script-file: server.bundle.js
-        deno-version: "1.0.3"
+        deno-version: "1.0.2"
